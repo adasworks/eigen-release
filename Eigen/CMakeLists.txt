@@ -16,4 +16,12 @@ install(FILES
   DESTINATION ${INCLUDE_INSTALL_DIR}/Eigen COMPONENT Devel
   )
 
+add_library(Eigen INTERFACE)
+target_include_directories(Eigen INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+    $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>)
+install(TARGETS Eigen EXPORT eigen-targets DESTINATION lib)
+install(EXPORT eigen-targets FILE eigen-config.cmake
+    NAMESPACE :: DESTINATION lib/cmake/Eigen)
+
 add_subdirectory(src)
